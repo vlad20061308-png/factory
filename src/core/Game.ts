@@ -25,14 +25,17 @@ export class Game {
     }
 
     const canvasWidth = this.renderer.getCanvasWidth();
+    const activeBalls = [];
 
     for (const ball of this.state.balls) {
       this.movementSystem.updateBall(ball, deltaTime);
 
-      if (ball.x - ball.radius > canvasWidth) {
-        ball.x = -ball.radius;
+      if (ball.x - ball.radius <= canvasWidth) {
+        activeBalls.push(ball);
       }
     }
+
+    this.state.balls = activeBalls;
   }
 
   render(): void {
