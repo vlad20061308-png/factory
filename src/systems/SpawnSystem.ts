@@ -11,7 +11,7 @@ const RARITY_WEIGHTS: ReadonlyArray<{ rarity: BallRarity; weight: number }> = [
 export class SpawnSystem {
   spawnBall(): Ball {
     const rarity = this.getWeightedRarity();
-    return new Ball(crypto.randomUUID(), 400, 300, 10, 180, 0, rarity);
+    return new Ball(crypto.randomUUID(), 10, 300, 10, 180, 0, rarity);
   }
 
   private getWeightedRarity(): BallRarity {
