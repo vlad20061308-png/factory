@@ -2,8 +2,16 @@ import { CanvasRenderer } from '../render/CanvasRenderer';
 import { GameState } from '../state/GameState';
 import { MovementSystem } from '../systems/MovementSystem';
 import { SpawnSystem } from '../systems/SpawnSystem';
+import type { BallRarity } from '../entities/Ball';
 
 const SPAWN_INTERVAL_MS = 2000;
+const RARITY_SCORE_REWARDS: Readonly<Record<BallRarity, number>> = {
+  common: 1,
+  rare: 3,
+  epic: 8,
+  legendary: 20,
+  mythical: 50,
+};
 
 export class Game {
   private readonly movementSystem = new MovementSystem();
@@ -32,6 +40,8 @@ export class Game {
 
       if (ball.x - ball.radius <= canvasWidth) {
         activeBalls.push(ball);
+      } else {
+        this.state.score += RARITY_SCORE_REWARDS[ball.rarity];
       }
     }
 
