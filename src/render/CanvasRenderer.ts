@@ -1,4 +1,12 @@
-import type { Ball } from '../entities/Ball';
+import type { Ball, BallRarity } from '../entities/Ball';
+
+const RARITY_COLORS: Record<BallRarity, string> = {
+  common: 'gray',
+  rare: 'blue',
+  epic: 'purple',
+  legendary: 'orange',
+  mythical: 'red',
+};
 
 export class CanvasRenderer {
   private readonly ctx: CanvasRenderingContext2D;
@@ -15,6 +23,10 @@ export class CanvasRenderer {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
+  getCanvasWidth(): number {
+    return this.canvas.width;
+  }
+
   drawText(text: string, x: number, y: number): void {
     this.ctx.fillStyle = '#fff';
     this.ctx.font = '16px sans-serif';
@@ -22,7 +34,7 @@ export class CanvasRenderer {
   }
 
   drawBall(ball: Ball): void {
-    this.ctx.fillStyle = '#00d4ff';
+    this.ctx.fillStyle = RARITY_COLORS[ball.rarity];
     this.ctx.beginPath();
     this.ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
     this.ctx.fill();
