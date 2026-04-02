@@ -1,3 +1,5 @@
+import type { Ball } from '../entities/Ball';
+
 export class CanvasRenderer {
   private readonly ctx: CanvasRenderingContext2D;
 
@@ -17,5 +19,12 @@ export class CanvasRenderer {
     this.ctx.fillStyle = '#fff';
     this.ctx.font = '16px sans-serif';
     this.ctx.fillText(text, x, y);
+  }
+
+  drawBall(ball: Ball): void {
+    this.ctx.fillStyle = '#00d4ff';
+    this.ctx.beginPath();
+    this.ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    this.ctx.fill();
   }
 }
