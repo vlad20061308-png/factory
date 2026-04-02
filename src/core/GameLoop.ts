@@ -1,31 +1,30 @@
 export class GameLoop {
-  private running = false;
   private lastTime = 0;
+  private running = false;
 
   constructor(
-    private readonly onUpdate: (deltaTime: number) => void,
-    private readonly onRender: () => void,
+    private readonly update: (deltaTime: number) => void,
+    private readonly render: () => void,
   ) {}
 
   start(): void {
     if (this.running) return;
     this.running = true;
-    this.lastTime = performance.now();
-    requestAnimationFrame(this.tick);
-  }
 
-  stop(): void {
-    this.running = false;
+    requestAnimationFrame((time) => {
+      this.lastTime = time;
+      this.tick(time);
+    });
   }
 
   private tick = (time: number): void => {
     if (!this.running) return;
 
-    const deltaTime = (time - this.lastTime) / 1000;
+    const deltaTime = time - this.lastTime;
     this.lastTime = time;
 
-    this.onUpdate(deltaTime);
-    this.onRender();
+    this.update(deltaTime);
+    this.render();
 
     requestAnimationFrame(this.tick);
   };
