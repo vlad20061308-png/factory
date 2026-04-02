@@ -11,8 +11,6 @@ export function bootstrap(): void {
   document.body.appendChild(canvas);
 
   const state = new GameState();
-
-  // 👉 ДОБАВЬ ЭТО
   const spawnSystem = new SpawnSystem();
   state.balls.push(spawnSystem.spawnBall());
 
@@ -20,7 +18,7 @@ export function bootstrap(): void {
   const game = new Game(state, renderer);
   const loop = new GameLoop(
     (deltaTime) => game.update(deltaTime),
-    () => game.render()
+    () => game.render(),
   );
 
   loop.start();
